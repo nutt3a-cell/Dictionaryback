@@ -1,13 +1,8 @@
-# FastAPI is a Python library that 
-# allows us to 
-# - take in a request (from the client)
-# - send back a response
-from fastapi import FastAPI
+from PyDictionary import PyDictionary
+  dictionary = PyDictionary()
 
-# CORS (Cross-Origin Resource Sharing)
-# allows us to restrict/enable 
-# which client urls are allowed 
-# to send requests to this backend code. 
+from fastapi import FastAPI 
+
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize the FastAPI application
