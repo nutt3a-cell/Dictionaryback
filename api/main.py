@@ -32,6 +32,12 @@ def get_example():
     """
     return {"message": "Hello World!"}
 
+
+@app.get("/example2")
+def get_example2(name: str):
+    """Takes in a 'name' parameter and returns a message."""
+    return {"message": f"Hello {name}!"}
+
 @app.get("/define")  
 def define_word(word: str = Query(..., description="The word to define")):
     """
