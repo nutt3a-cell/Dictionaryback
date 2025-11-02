@@ -7,8 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize the FastAPI application
 app = FastAPI(
-    title="FastAPI Example",
-    description="This is an example of using FastAPI"
+    title="The ULTIMATE Dictionary",
+    description="A Dictionary with many features!!!"
 )
 
 # Enable CORS
@@ -20,11 +20,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")           #endpoint, or route, always starts with a forward slash
-def default_route():    #route handler function
-    """
-    This is the default endpoint for this back-end.
-    """
+@app.get("/")
+def default_route():
+    """This is the default endpoint for this back-end."""
     return "You have reached the default route. Back-end server is listening..."
     
 @app.get("/example")  
@@ -34,9 +32,17 @@ def get_example():
     """
     return {"message": "Hello World!"}
 
-@app.get("/example2")  
-def get_example2(name):    # can also pass in parameters
+@app.get("/define")  
+def define_word(word: str = Query(..., description="The word to define")):
     """
-    This endpoint takes in a parameter called "name"
+    Takes a word as a query parameter and returns its meanings.
+    Example: /define?word=apple
     """
-    return {"message": f"Hello {name}!"}
+    meaning = dictionary.meaning(word)
+
+    if not meaning:
+        return {"error": f"Definition for '{word}' not found."}
+
+    # Convert meaning dict to a cleaner format
+    return {"word": word, "meanings": meaning}
+
